@@ -1,0 +1,43 @@
+# SPA路由配置
+# 针对React Router和Cloudflare Pages优化
+
+# SPA路由回退 - 所有路径返回index.html（200状态码）
+/*    /index.html   200
+
+# API代理配置（如果需要）
+# /api/*  https://your-backend-api.com/api/:splat  200
+
+# Supabase服务代理（可选，用于避免CORS）
+# /supabase/*  https://axdbkdjqwgznptkvkesa.supabase.co/:splat  200
+
+# 静态资源直接服务（优先级较高）
+/assets/*  /assets/:splat  200
+/favicon.ico  /favicon.ico  200
+/logo.svg  /logo.svg  200
+/mercado-libre-logo.svg  /mercado-libre-logo.svg  200
+
+# 重定向旧路径（如果有历史路径需要重定向）
+# /old-path/*  /new-path/:splat  301
+# /productos/*  /products/:splat  301
+
+# 错误页面处理
+/404  /index.html  404
+/500  /index.html  500
+
+# 健康检查端点
+/health  /index.html  200
+
+# 机器人文件
+/robots.txt  /robots.txt  200
+/sitemap.xml  /sitemap.xml  200
+
+# PWA相关文件
+/manifest.json  /manifest.json  200
+/sw.js  /sw.js  200
+
+# 强制HTTPS重定向（在Cloudflare层面处理）
+# http://your-domain.com/*  https://your-domain.com/:splat  301!
+
+# 区域特定重定向（如果需要）
+# /us/*  https://mercadolibre-us.pages.dev/:splat  302
+# /br/*  https://mercadolibre-br.pages.dev/:splat  302

@@ -1,0 +1,3 @@
+name,variant,price,description,category_id,buy_link,featured,images
+iPhone 15 Pro,高配版,999.99,最新款iPhone手机,1,https://example.com/buy/iphone15,true,"https://test.com/image1.webp,https://test.com/image2.png,https://test.com/image3.jpg"
+MacBook Pro,M3芯片,1999.99,专业笔记本电脑,2,https://example.com/buy/macbook,false,"https://test.com/macbook1.webp,https://test.com/macbook2.png"

@@ -1,0 +1,96 @@
+# CDN缓存和安全策略配置
+# 针对Cloudflare Pages和墨西哥市场优化
+
+# 全局安全头
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://axdbkdjqwgznptkvkesa.supabase.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://axdbkdjqwgznptkvkesa.supabase.co wss://axdbkdjqwgznptkvkesa.supabase.co; frame-ancestors 'none'
+
+# 静态资源长期缓存（1年）
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+  
+# JavaScript文件优化
+*.js
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Encoding: gzip, br
+  
+# CSS文件优化
+*.css
+  Cache-Control: public, max-age=31536000, immutable
+  Content-Encoding: gzip, br
+  
+# 字体文件优化（1年缓存）
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+  Cross-Origin-Embedder-Policy: require-corp
+  Access-Control-Allow-Origin: *
+  
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+  
+# 图片资源优化（1天缓存）
+/*.jpg
+  Cache-Control: public, max-age=86400
+  
+/*.jpeg
+  Cache-Control: public, max-age=86400
+  
+/*.png
+  Cache-Control: public, max-age=86400
+  
+/*.svg
+  Cache-Control: public, max-age=86400
+  
+/*.webp
+  Cache-Control: public, max-age=86400
+  
+/*.avif
+  Cache-Control: public, max-age=86400
+
+# HTML文件短期缓存（立即验证）
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+  
+# 根HTML文件
+/index.html
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+# API请求不缓存
+/api/*
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+  
+# Service Worker不缓存
+/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate
+  
+# Manifest文件短期缓存
+/manifest.json
+  Cache-Control: public, max-age=86400
+
+# 墨西哥地区优化标记
+/*
+  CF-Cache-Tag: mx-region, mercadolibre
+  CF-Cache-Status: HIT
+  
+# 预加载关键资源
+/
+  Link: </assets/index.css>; rel=preload; as=style
+  Link: </assets/index.js>; rel=preload; as=script
+  
+# 压缩配置
+*.html
+  Content-Encoding: gzip, br
+  
+*.json
+  Content-Encoding: gzip, br
+  Cache-Control: public, max-age=3600
